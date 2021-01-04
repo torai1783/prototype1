@@ -1,24 +1,80 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 開発要件
+| 優先順位<br>(高：3、中：2、低：1) |  機能   |  目的  |  詳細  |  ストーリー(ユースケース)  |  見積もり（所要時間）  |
+| :------ | :---- | :--- |:----- |:---- |:----- |
+|  3  |  2Dゲーム   |  ゲームからARTに興味を持ってもらう  |  因幡都頼の作品を元にした2D横スクロールアクション<br>unityで開発  |  利用者制限なし<br>スマートフォンはタッチ式で移動<br>PCは十字キー  |  240   |
+|  2  |	ユーザー管理 | ゲームスコアの確認 | スコアを更新したい場合はユーザー登録 | 自分のスコアを確認するため |	10 |
+|  3  | データベース | ユーザーとゲームスコアの保存 | ユーザー登録のため<br>ユーザーとゲームスコアを紐ずけるため | users、games、scoresテーブルにそれぞれ格納※RE参照 | 10 |
+|  3  | TOPページ   | 各コンテンツの表示 | ゲームや作品の画像、newなどのページへ移動できる | ゲーム画面、ギャラリー、newが表示され、各コンテンツへ移動可能 | 20 |
+|  2  | galleryページ | 作品画像の閲覧 | 作品画像の一覧を表示 | 作品画像の閲覧が可能 | 20 |
+## appname
+- TORAIROOM
 
-Things you may want to cover:
+## ペルソナ
+- 性別：問わない
+- 職業：問わない
+- 趣味：サブカルチャー、アート観賞、変わった物が好き、アニメ・漫画、ゲーム
+- 日頃の生活：学生、社会人
 
-* Ruby version
+## アプリケーション概要
+- 因幡都頼による作品を素材にしたゲームをプラットフォームに、「実際の作品を見てみたい。」と感じさせ展示会などに足を運んでもらう。
+- artに興味を持ってもらうための導入としてゲーム性のあるアプリケーションを作成する。
 
-* System dependencies
+## URL
+## テストアカウント
+## 利用方法
+- スマートフォン・タブレットやPCで閲覧可能。
+- 誰でもゲームを操作可能
+- スコアを競いたい場合はユーザー登録が必要
 
-* Configuration
+## 目指した課題解決
+- 数年前に比べ格段に情報を得る方法と量が多くなっているが、ARTや芸術については、未だ高尚な物であるという考え方をしている人は少なくない。人の「考え生み出す力」こそ原動力と言うことを美術作品を通して知ってもらいたい。
 
-* Database creation
+## 洗い出した要件
+- unityで2Dゲーム開発
+- ユーザー登録しなくてもゲームができる
+- ユーザー登録するとスコアが登録できる
+- スコアとユーザーを紐ずける
+- ギャラリーページで作品が見れる
 
-* Database initialization
+## 機能についてのGIFと説明
 
-* How to run the test suite
+## 実装予定の機能
+- 横スクロールのゲーム
+- 実際の作品が閲覧できる一覧ページ
+- 展覧会情報など
 
-* Services (job queues, cache servers, search engines, etc.)
+## ローカルでの動作方法
+### テーブル設計
+users テーブル
+|Column	             |Type	     |Option                    |
+| -----------------  | --------- | ------------------------ |
+|nickname	           |string	   |null: false               |
+|email	             |string     |null: false, unique: true |
+|encrypted_password  |string	   |null: false               |
 
-* Deployment instructions
+Association
+has_one : scores 
+has_one : gameids
 
-* ...
+### gameid
+
+|Column	   |Type	    |Option            |
+| -------- | -------- | ---------------- |
+|user_id	 |reference	|foreign_key: true |
+
+Association
+has_one : scores has_one : users
+
+### scores テーブル
+
+|Column	   |Type	    |Option            |
+| -------- | -------- | ---------------- |
+|user_id   |reference	| foreign_key: true|
+|score	   |integer	  | null: false      |
+|game_id	 |reference	| foreign_key: true|
+
+Association
+has_one :users
+has_one :gameid
