@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <h1>ToraiRoom</h1>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,21 +11,21 @@
 
   <body>
     <header class="header">
-      <div class="header__bar">
-        <h1 class="fnt-1"><a href="/">ToraiRoom</a></h1>
-        <% if user_signed_in? %>
-          <div class="user_nav fnt-1">
-            <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-            <%= link_to "NEWS", "#", class: "btn" %>
-            <%= link_to "GALLERY", "#" , class: "btn" %>
-          </div>
+      <ul class="nav">
+        <li><h1 class="fnt-1"><a href="/">ToraiRoom</a></h1>
+          <% if user_signed_in? %>
+          <ul class="user_nav fnt-1">
+            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn" %>
+            <li><%= link_to "NEWS", "#", class: "btn" %>
+            <li><%= link_to "GALLERY", "#" , class: "btn" %>
+          </ul>
         <% else %>
-          <div class="fnt-1">
-            <%= link_to "ログイン", new_user_session_path, class: "btn" %>
-            <%= link_to "新規登録", new_user_registration_path, class: "btn" %>
-          </div>
+          <ul class="user_nav fnt-1">
+            <li><%= link_to "ログイン", new_user_session_path, class: "btn" %>
+            <li><%= link_to "新規登録", new_user_registration_path, class: "btn" %>
+          </ul>
         <% end %>
-      </div>
+      </ul>
     </header>
     <%= yield %>
     <footer class="footer">
@@ -36,3 +35,4 @@
     </footer>
   </body>
 </html>
+

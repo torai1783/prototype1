@@ -1,0 +1,10 @@
+footer {
+  clear:both;
+  height:50px;
+  text-align:center;
+  font-size:0.85em;
+  background-image:url(img/footer.gif);
+  background-repeat:no-repeat;
+  padding-top:30px;
+  display:block;
+  }
